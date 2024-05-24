@@ -8,8 +8,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "types": ["@iiif/vocabulary", "@types/node"],
-    "sourceMap": true,
-    "watch": true
+    "sourceMap": true
   },
   "include": ["./"],
   "exclude": ["node_modules", "test"]

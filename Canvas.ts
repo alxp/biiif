@@ -30,7 +30,9 @@ import {
 } from "./Utils";
 import annotationBoilerplate from "./boilerplate/annotation.json";
 import config from "./config.json";
+import hocrBoilerplate from "./boilerplate/hocr.json";
 import imageServiceBoilerplate from "./boilerplate/imageservice.json";
+import { URL } from "url";
 import urljoin from "url-join";
 
 export class Canvas {
@@ -317,8 +319,8 @@ export class Canvas {
         const extName: string = extname(file);
 
         // if this._config.annotation has a matching extension
-        let defaultPaintingExtension: any = this._config.annotation.motivations
-          .painting[extName];
+        let defaultPaintingExtension: any =
+          this._config.annotation.motivations.painting[extName];
 
         let directoryName: string = "";
 
@@ -355,6 +357,29 @@ export class Canvas {
             annotationJson
           );
 
+          const hocrFiles: string[] = await glob(
+            this.directoryFilePath + "/*.hocr"
+          );
+          if (hocrFiles) {
+            const hocrFile = hocrFiles[0];
+            console.log("Found hOCR file " + hocrFiles[0]);
+            if (this._isCanvasDirectory()) {
+              directoryName = dirname(hocrFile);
+              directoryName = directoryName.substr(
+                directoryName.lastIndexOf("/")
+              );
+            }
+
+            const hocrFileName: string = basename(hocrFile);
+            const hocrId: string = urljoin(
+              this.url.href,
+              directoryName,
+              hocrFileName
+            );
+            const hocrJson: any = cloneJson(hocrBoilerplate);
+            hocrJson["@id"] = hocrId;
+            canvasJson.seeAlso = hocrJson;
+          }
           if (
             defaultPaintingExtension.type.toLowerCase() ===
             ExternalResourceType.IMAGE

@@ -17,6 +17,7 @@ import isurl from "is-url";
 import jsonfile from "jsonfile";
 import labelBoilerplate from "./boilerplate/label.json";
 import thumbnailBoilerplate from "./boilerplate/thumbnail.json";
+import { URL } from "url";
 import urljoin from "url-join";
 import yaml from "js-yaml";
 const sharp = require("sharp");
