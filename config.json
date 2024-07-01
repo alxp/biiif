@@ -48,6 +48,13 @@
             "format": "model/stl"
           }
         ],
+        ".jp2": [
+          {
+            "type": "Image",
+            "format": "image/jp2"
+          }
+        ],
+
         ".jpg": [
           {
             "type": "Image",

@@ -4,11 +4,18 @@ So far this fork does the following:
 
 - Minor updates to support building with current versions of the TypeScript compiler
 - Add hOCR text overlay support
+- Add JPEG2000 support via locally-compiled [Sharp](https://sharp.pixelplumbing.com).
+
+### hOCR Support
 
 If there is a file with a .hocr extension in a folder with an image, then a 'seeAlso' section will be
- automatically added with a link to the hOCR file.
+automatically added with a link to the hOCR file.
 
 This was tested with the Mirador 3 viewer compiled with the [Text Overlay](https://github.com/dbmdz/mirador-textoverlay) plugin.
+
+### JPEG2000 Support
+
+See [these instructions](https://sharp.pixelplumbing.com/install#building-from-source) for compiling Sharp with a local Vips library.
 
 # biiif (build iiif) 👷✨📃
 

@@ -362,23 +362,25 @@ export class Canvas {
           );
           if (hocrFiles) {
             const hocrFile = hocrFiles[0];
-            console.log("Found hOCR file " + hocrFiles[0]);
-            if (this._isCanvasDirectory()) {
-              directoryName = dirname(hocrFile);
-              directoryName = directoryName.substr(
-                directoryName.lastIndexOf("/")
-              );
-            }
+            if (hocrFile) {
+              console.log("Found hOCR file " + hocrFiles[0]);
+              if (this._isCanvasDirectory()) {
+                directoryName = dirname(hocrFile);
+                directoryName = directoryName.substr(
+                  directoryName.lastIndexOf("/")
+                );
+              }
 
-            const hocrFileName: string = basename(hocrFile);
-            const hocrId: string = urljoin(
-              this.url.href,
-              directoryName,
-              hocrFileName
-            );
-            const hocrJson: any = cloneJson(hocrBoilerplate);
-            hocrJson["@id"] = hocrId;
-            canvasJson.seeAlso = hocrJson;
+              const hocrFileName: string = basename(hocrFile);
+              const hocrId: string = urljoin(
+                this.url.href,
+                directoryName,
+                hocrFileName
+              );
+              const hocrJson: any = cloneJson(hocrBoilerplate);
+              hocrJson["@id"] = hocrId;
+              canvasJson.seeAlso = hocrJson;
+            }
           }
           if (
             defaultPaintingExtension.type.toLowerCase() ===

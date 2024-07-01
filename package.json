@@ -40,7 +40,9 @@
     "is-url": "^1.2.4",
     "js-yaml": "^4.0.0",
     "jsonfile": "^6.1.0",
-    "sharp": "^0.28.0",
+    "node-addon-api": "^8.0.0",
+    "node-gyp": "^10.1.0",
+    "sharp": "^0.33.4",
     "url-join": "^2.0.5"
   },
   "devDependencies": {
