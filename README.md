@@ -1,6 +1,6 @@
 # About This Fork
 
-So far this fork does the following:
+So far this fork adds the following:
 
 - Minor updates to support building with current versions of the TypeScript compiler
 - Add hOCR text overlay support
