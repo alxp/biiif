@@ -113,7 +113,7 @@ export class Canvas {
           annotationJson.id = urljoin(
             canvasJson.id,
             "annotation",
-            canvasJson.items[0].items.length
+            String(canvasJson.items[0].items.length)
           );
 
           let motivation: string | undefined = yml.motivation;
@@ -339,7 +339,7 @@ export class Canvas {
           annotationJson.id = urljoin(
             canvasJson.id,
             "annotation",
-            canvasJson.items[0].items.length
+            String(canvasJson.items[0].items.length)
           );
           annotationJson.motivation = normaliseType(
             AnnotationMotivation.PAINTING

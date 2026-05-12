@@ -265,11 +265,15 @@ export class Directory {
 
       for (const canvas of this.items) {
         const canvasJson: any = cloneJson(canvasBoilerplate);
-        canvasJson.id = urljoin(this.url.href, "index.json/canvas", index);
+        canvasJson.id = urljoin(
+          this.url.href,
+          "index.json/canvas",
+          String(index)
+        );
         canvasJson.items[0].id = urljoin(
           this.url.href,
           "index.json/canvas",
-          index,
+          String(index),
           "annotationpage/0"
         );
 
