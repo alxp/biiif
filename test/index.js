@@ -8,8 +8,8 @@ function importTest(name, path) {
 }
 
 before(async () => {
-  const blob = new Buffer([8, 6, 7, 5, 3, 0, 9]);
-  const jpg = new Buffer(require("./fixtures/cat-jpg"));
+  const blob = Buffer.from([8, 6, 7, 5, 3, 0, 9]);
+  const jpg = Buffer.from(require("./fixtures/cat-jpg"));
 
   mock({
     "/thumbs-single-manifest": {
