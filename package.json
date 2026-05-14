@@ -1,12 +1,12 @@
 {
-  "name": "biiif",
-  "version": "1.0.7",
+  "name": "@alxp/biiif",
+  "version": "2.0.0",
   "description": "A CLI to build IIIF collections",
   "type": "module",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/edsilv/biiif.git"
+    "url": "git+https://github.com/alxp/biiif.git"
   },
   "scripts": {
     "build": "npm run format && tsc",
@@ -26,7 +26,14 @@
     "nodejs",
     "CLI"
   ],
-  "author": "@edsilv",
+  "author": {
+    "name": "Alexander O'Neill>",
+    "email": "aloneill@gmail.com",
+    "url": "https://alxp.ca"
+  },
+  "contributors": [
+    "@edsilv"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/edsilv/biiif/issues"
@@ -43,7 +50,7 @@
     "jsonfile": "^6.1.0",
     "node-addon-api": "^8.0.0",
     "node-gyp": "^12.3.0",
-    "sharp": "^0.33.5",
+    "sharp": "^0.34.5",
     "url-join": "^5.0.0"
   },
   "overrides": {
