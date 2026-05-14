@@ -1,1 +1,1 @@
-module.exports = "value: assets/file.json";
+export default "value: assets/file.json";

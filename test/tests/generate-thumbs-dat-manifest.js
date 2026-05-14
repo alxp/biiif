@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("generate-thumbs-dat-manifest", function () {
 let manifestJson, canvasJson, thumbnailJson;
 const manifest = "/generate-thumbs-dat-manifest";
 const datId =
@@ -40,4 +41,5 @@ it("has correct canvas thumbnail id", async () => {
   assert(
     thumbnailJson.id === generateThumbsManifestUrl + "/_page-1/thumb.jpg"
   );
+});
 });

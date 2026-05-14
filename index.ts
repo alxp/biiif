@@ -1,10 +1,10 @@
-import { Directory } from "./Directory";
-import { fileExists, log } from "./Utils";
+import { Directory } from "./Directory.js";
+import { fileExists, log } from "./Utils.js";
 
 export const build = async (
   dir: string,
   url: string,
-  virtualName?: string
+  virtualName?: string,
 ): Promise<void> => {
   log(`started biiifing ${dir}`);
 

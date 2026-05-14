@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("canvas-label-annotation-manifest", function () {
 let manifestJson, canvasJson, annotationPage, annotation, annotationBody;
 const manifest = "/canvas-label-annotation-manifest";
 const manifestUrl = "http://test.com/canvas-label-annotation-manifest";
@@ -54,4 +55,5 @@ it("has an annotation body", async () => {
 
 it("has correct annotation label", async () => {
   assert(annotationBody.label["@none"][0] === "Custom Label");
+});
 });

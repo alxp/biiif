@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("custom-annotations-manifest", function () {
 let manifestJson, canvasJson, annotation, annotationPage, annotationBody;
 const manifest = "/custom-annotations-manifest";
 const customAnnotationsManifestUrl =
@@ -663,3 +664,4 @@ describe('painting three.js json with type', async () => {
 
 });
 */
+});

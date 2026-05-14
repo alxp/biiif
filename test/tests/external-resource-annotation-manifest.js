@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("external-resource-annotation-manifest", function () {
 let manifestJson, canvasJson, annotation, annotationPage, annotationBody;
 const manifest = "/external-resource-annotation-manifest";
 const customAnnotationsManifestUrl =
@@ -88,4 +89,5 @@ describe("commenting text with format", async () => {
   it("has correct annotation body format", async () => {
     assert(annotationBody.format === "application/json");
   });
+});
 });

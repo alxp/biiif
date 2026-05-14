@@ -1,17 +1,24 @@
 # About This Fork
 
-So far this fork adds the following:
+This is a fork of [edsilv/biiif](https://github.com/edsilv/biiif) with the following changes:
 
-- Minor updates to support building with current versions of the TypeScript compiler
-- Add hOCR text overlay support
-- Add JPEG2000 support via locally-compiled [Sharp](https://sharp.pixelplumbing.com).
+- **ESM migration** — converted from CommonJS to ES modules throughout
+- **Node.js 26** support — upgraded dependencies for compatibility with modern Node.js
+- **TypeScript 5.9** — upgraded from 4.1, with `nodenext` module resolution
+- **chalk v5**, **url-join v5**, **glob v13** — upgraded to latest majors (removed `glob-promise`, glob v10+ is natively async)
+- **Mocha v11**, **mock-fs v5** — upgraded test dependencies
+- **Prettier v3** — upgraded formatter
+- **TSLint removed** — deprecated; TypeScript compiler is now the sole code quality gate
+- **Security fixes** — overrides for `diff` and `serialize-javascript`; `node-gyp` v12; 0 npm audit vulnerabilities
+- **hOCR text overlay support** — `.hocr` files in a canvas folder are automatically linked via `seeAlso`
+- **JPEG2000 support** — via locally-compiled [Sharp](https://sharp.pixelplumbing.com)
 
 ### hOCR Support
 
 If there is a file with a .hocr extension in a folder with an image, then a 'seeAlso' section will be
 automatically added with a link to the hOCR file.
 
-This was tested with the Mirador 3 viewer compiled with the [Text Overlay](https://github.com/dbmdz/mirador-textoverlay) plugin.
+This was tested with the Mirador 3and 4 viewers compiled with the [Text Overlay](https://github.com/dbmdz/mirador-textoverlay) plugin.
 
 ### JPEG2000 Support
 
@@ -27,9 +34,9 @@ See [these instructions](https://sharp.pixelplumbing.com/install#building-from-s
 npm i biiif --save
 ```
 
-```bash
-const { build } = require('biiif');
-build('myfolder', 'http://example.com/myfolder');
+```js
+import { build } from "biiif";
+build("myfolder", "http://example.com/myfolder");
 ```
 
 Organise your files according to a simple [naming convention](https://github.com/edsilv/biiif#examples) to generate [IIIF](http://iiif.io) content/data using 100% node.js! [IPFS](https://github.com/ipfs) compatible.

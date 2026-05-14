@@ -1,7 +1,8 @@
-const { assert, build, urljoin } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build, urljoin  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
-let collectionJson,
+describe("collection", function () {
+let collectionJson, annotation,
   manifestJson,
   canvasJson,
   thumbnailJson,
@@ -301,4 +302,5 @@ describe("sub-collection", async () => {
         collectionUrl + "/sub-collection/b_manifest/_canvas/page_1.jpg"
     );
   });
+});
 });

@@ -1,7 +1,8 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
-let collectionJson, manifestJson, canvasJson, annotationPage;
+describe("files-only-collection", function () {
+let collectionJson, manifestJson, canvasJson, annotationPage, annotation, annotationBody;
 const collection = "/files-only-collection";
 const collectionUrl = "http://test.com/files-only-collection";
 
@@ -79,4 +80,5 @@ it("has correct annotation id", async () => {
     annotationBody.id ===
       "http://test.com/files-only-collection/files-only-manifest/file.gltf"
   );
+});
 });

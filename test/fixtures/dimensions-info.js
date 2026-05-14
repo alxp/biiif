@@ -1,2 +1,2 @@
-module.exports = "width: 600 \n\
+export default "width: 600 \n\
 height: 400";

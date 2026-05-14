@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("collection-no-manifests", function () {
 let collectionJson;
 const collection = "/manifests-collection";
 const collectionUrl = "http://test.com/collection";
@@ -18,4 +19,5 @@ it("can find collection index.json", async () => {
 
 it("has correct number of items", async () => {
   assert(collectionJson.items.length === 3);
+});
 });

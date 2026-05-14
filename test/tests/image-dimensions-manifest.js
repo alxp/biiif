@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("image-dimensions-manifest", function () {
 let manifestJson, canvasJson, annotationPage, annotation, annotationBody;
 const manifest = "/image-dimensions-manifest";
 const manifestUrl = "http://test.com/image-dimensions-manifest";
@@ -53,3 +54,4 @@ it("has an annotation body", async () => {
 //   assert(annotationBody.width === 582);
 //   assert(annotationBody.height === 328);
 // });
+});

@@ -1,6 +1,6 @@
-import { Canvas } from "./Canvas";
+import { Canvas } from "./Canvas.js";
 import { join, basename } from "path";
-import { promise as glob } from "glob-promise";
+import { glob } from "glob";
 import { URL } from "url";
 import {
   cloneJson,
@@ -14,16 +14,15 @@ import {
   readYml,
   warn,
   writeJson,
-} from "./Utils";
-// import urljoin from "url-join";
-const urljoin = require("url-join");
+} from "./Utils.js";
+import urljoin from "url-join";
 // boilerplate json
-import canvasBoilerplate from "./boilerplate/canvas.json";
-import collectionBoilerplate from "./boilerplate/collection.json";
-import collectionItemBoilerplate from "./boilerplate/collectionitem.json";
-import manifestBoilerplate from "./boilerplate/manifest.json";
-import manifestItemBoilerplate from "./boilerplate/manifestitem.json";
-import thumbnailBoilerplate from "./boilerplate/thumbnail.json";
+import canvasBoilerplate from "./boilerplate/canvas.json" with { type: "json" };
+import collectionBoilerplate from "./boilerplate/collection.json" with { type: "json" };
+import collectionItemBoilerplate from "./boilerplate/collectionitem.json" with { type: "json" };
+import manifestBoilerplate from "./boilerplate/manifest.json" with { type: "json" };
+import manifestItemBoilerplate from "./boilerplate/manifestitem.json" with { type: "json" };
+import thumbnailBoilerplate from "./boilerplate/thumbnail.json" with { type: "json" };
 
 export class Directory {
   public directories: Directory[] = [];
@@ -44,7 +43,7 @@ export class Directory {
     directoryFilePath: string,
     url: string,
     virtualName?: string,
-    parentDirectory?: Directory
+    parentDirectory?: Directory,
   ) {
     this.directoryFilePath = directoryFilePath;
     this.url = new URL(url);
@@ -69,7 +68,7 @@ export class Directory {
       canvases.map(async (canvas: string) => {
         log(`creating canvas for: ${canvas}`);
         this.items.push(new Canvas(canvas, this));
-      })
+      }),
     );
 
     // directories not starting with an underscore
@@ -108,11 +107,11 @@ export class Directory {
           directory,
           url,
           undefined,
-          this
+          this,
         );
         await newDirectory.read();
         this.directories.push(newDirectory);
-      })
+      }),
     );
 
     // if there are no canvas, manifest, or collection directories to read,
@@ -123,7 +122,7 @@ export class Directory {
         this.directoryFilePath + "/*.*",
         {
           ignore: ["**/*.yml", "**/thumb.*", "**/index.json"],
-        }
+        },
       );
 
       // sort files
@@ -145,7 +144,7 @@ export class Directory {
       // if there are canvases, warn that they are being ignored
       if (this.items.length) {
         warn(
-          `${this.items.length} unused canvas directories (starting with an underscore) found in the ${this.directoryFilePath} collection. Remove directories not starting with an underscore to convert into a manifest.`
+          `${this.items.length} unused canvas directories (starting with an underscore) found in the ${this.directoryFilePath} collection. Remove directories not starting with an underscore to convert into a manifest.`,
         );
       }
     } else {
@@ -153,7 +152,7 @@ export class Directory {
       // if there aren't any canvases, warn that there should be
       if (!this.items.length) {
         warn(
-          `${this.directoryFilePath} is a manifest, but no canvases (directories starting with an underscore) were found. Therefore it will not have any content.`
+          `${this.directoryFilePath} is a manifest, but no canvases (directories starting with an underscore) were found. Therefore it will not have any content.`,
         );
       }
     }
@@ -202,7 +201,7 @@ export class Directory {
           await getThumbnail(itemJson, directory);
 
           this.indexJson.items.push(itemJson);
-        })
+        }),
       );
 
       // check for manifests.yml. if it exists, parse and add to items
@@ -211,7 +210,7 @@ export class Directory {
       if (hasYml) {
         const manifestsPath: string = join(
           this.directoryFilePath,
-          "manifests.yml"
+          "manifests.yml",
         );
         const manifestsYml: any = await readYml(manifestsPath);
 
@@ -253,7 +252,7 @@ export class Directory {
       this.indexJson.items.sort((a, b) => {
         return compare(
           a.label["@none"][0].toLowerCase(),
-          b.label["@none"][0].toLowerCase()
+          b.label["@none"][0].toLowerCase(),
         );
       });
     } else {
@@ -268,13 +267,13 @@ export class Directory {
         canvasJson.id = urljoin(
           this.url.href,
           "index.json/canvas",
-          String(index)
+          String(index),
         );
         canvasJson.items[0].id = urljoin(
           this.url.href,
           "index.json/canvas",
           String(index),
-          "annotationpage/0"
+          "annotationpage/0",
         );
 
         await canvas.read(canvasJson);

@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("sort-files-numeric-manifest", function () {
 let manifestJson, canvases;
 const manifest = "/sort-files-numeric-manifest";
 const manifestUrl = "http://test.com/sort-files-numeric-manifest";
@@ -43,4 +44,5 @@ it("sorts canvases correctly", async () => {
     canvases[20].id ===
       "http://test.com/sort-files-numeric-manifest/index.json/canvas/20"
   );
+});
 });

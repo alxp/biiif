@@ -2,6 +2,7 @@
   "name": "biiif",
   "version": "1.0.7",
   "description": "A CLI to build IIIF collections",
+  "type": "module",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -33,24 +34,27 @@
   "homepage": "https://github.com/edsilv/biiif#readme",
   "dependencies": {
     "@iiif/vocabulary": "^1.0.20",
-    "chalk": "^4.1.2",
+    "chalk": "^5.6.2",
     "ffprobe": "^1.1.2",
     "ffprobe-static": "^3.0.0",
-    "glob": "^7.1.6",
-    "glob-promise": "^4.0.1",
+    "glob": "^13.0.6",
     "is-url": "^1.2.4",
     "js-yaml": "^4.0.0",
     "jsonfile": "^6.1.0",
     "node-addon-api": "^8.0.0",
-    "node-gyp": "^10.1.0",
+    "node-gyp": "^12.3.0",
     "sharp": "^0.33.5",
-    "url-join": "^4.0.1"
+    "url-join": "^5.0.0"
+  },
+  "overrides": {
+    "diff": "^9.0.0",
+    "serialize-javascript": "^7.0.5"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",
     "mocha": "^11.7.5",
     "mock-fs": "^5.5.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.8.3",
     "serve": "^14.2.6",
     "typescript": "^5.9.3"
   }

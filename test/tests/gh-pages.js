@@ -1,7 +1,8 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
-let collectionJson, thumbnailJson, manifestJson, canvasJson;
+describe("gh-pages", function () {
+let collectionJson, thumbnailJson, manifestJson, canvasJson, item;
 const collection = "/gh-collection";
 const githubpagesUrl =
   "https://username.github.io/uv-app-starter-fork/gh-collection";
@@ -57,4 +58,5 @@ it("can find canvas", async () => {
 
 it("has correct canvas id", async () => {
   assert(canvasJson.id === githubpagesUrl + "/vertebra/index.json/canvas/0");
+});
 });

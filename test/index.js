@@ -1,15 +1,34 @@
-const common = require("./common");
-const mock = common.mock;
+import { mock } from "./common.js";
+import fs from "fs";
+import path from "path";
+import { createRequire } from "module";
 
-function importTest(name, path) {
-  describe(name, function () {
-    require(path);
-  });
-}
+const require = createRequire(import.meta.url);
+
+// Fixture imports
+import catJpg from "./fixtures/cat-jpg.js";
+import manifests from "./fixtures/manifests.js";
+import commentingTextWithFormat from "./fixtures/commenting-text-with-format.js";
+import commentingTextWithType from "./fixtures/commenting-text-with-type.js";
+import commentingTextWithoutTypeFormat from "./fixtures/commenting-text-without-type-format.js";
+import jsonValueWithFormat from "./fixtures/json-value-with-format.js";
+import jsonValueWithoutFormat from "./fixtures/json-value-without-format.js";
+import jsonValueWithoutMotivationTypeFormat from "./fixtures/json-value-without-motivation-type-format.js";
+import paintingGltf from "./fixtures/painting-gltf.js";
+import paintingJpg from "./fixtures/painting-jpg.js";
+import paintingThreejsJsonWithType from "./fixtures/painting-threejs-json-with-type.js";
+import paintingJpgWithXywh from "./fixtures/painting-jpg-with-xywh.js";
+import dimensionsInfo from "./fixtures/dimensions-info.js";
+import presentation3ImageService from "./fixtures/presentation-3-image-service.js";
+import behaviorPaged from "./fixtures/behavior-paged.js";
+import multipleBehavior from "./fixtures/multiple-behavior.js";
+import externalResourceAnnotation from "./fixtures/external-resource-annotation.js";
+import canvasLabelAnnotation from "./fixtures/canvas-label-annotation.js";
+import epubExternalResourceAnnotation from "./fixtures/epub-external-resource-annotation.js";
 
 before(async () => {
   const blob = Buffer.from([8, 6, 7, 5, 3, 0, 9]);
-  const jpg = Buffer.from(require("./fixtures/cat-jpg"));
+  const jpg = Buffer.from(catJpg);
 
   mock({
     "/thumbs-single-manifest": {
@@ -56,7 +75,7 @@ before(async () => {
       },
     },
     "/manifests-collection": {
-      "manifests.yml": require("./fixtures/manifests"),
+      "manifests.yml": manifests,
     },
     "/collection": {
       "info.yml": "label: My Test Collection",
@@ -70,7 +89,7 @@ before(async () => {
           "thumb.png": jpg,
         },
       },
-      "manifests.yml": require("./fixtures/manifests"),
+      "manifests.yml": manifests,
       "sub-collection": {
         "info.yml": "label: My Test Sub-collection",
         "thumb.png": jpg,
@@ -102,12 +121,6 @@ before(async () => {
         _json: {
           "file.json": "json",
         },
-        // _mp3: {
-        //   "file.mp3": blob,
-        // },
-        // _mp4: {
-        //   "file.mp4": blob,
-        // },
         _obj: {
           "file.obj": "obj",
         },
@@ -136,8 +149,6 @@ before(async () => {
           "file.gltf": "gltf",
           "file.jpg": jpg,
           "file.json": "json",
-          // "file.mp3": blob,
-          // "file.mp4": blob,
           "file.obj": "obj",
           "file.pdf": blob,
           "file.ply": "ply",
@@ -271,38 +282,38 @@ before(async () => {
     },
     "/custom-annotations-manifest": {
       "_commenting-text-with-format": {
-        "commenting-text-with-format.yml": require("./fixtures/commenting-text-with-format"),
+        "commenting-text-with-format.yml": commentingTextWithFormat,
       },
       "_commenting-text-with-type": {
-        "commenting-text-with-type.yml": require("./fixtures/commenting-text-with-type"),
+        "commenting-text-with-type.yml": commentingTextWithType,
       },
       "_commenting-text-without-type-format": {
-        "commenting-text-without-type-format.yml": require("./fixtures/commenting-text-without-type-format"),
+        "commenting-text-without-type-format.yml": commentingTextWithoutTypeFormat,
       },
       "_json-value-with-format": {
-        "json-value-with-format.yml": require("./fixtures/json-value-with-format"),
+        "json-value-with-format.yml": jsonValueWithFormat,
       },
       "_json-value-without-format": {
-        "json-value-without-format.yml": require("./fixtures/json-value-without-format"),
+        "json-value-without-format.yml": jsonValueWithoutFormat,
       },
       "_json-value-without-motivation-type-format": {
         assets: {
           "file.json": "json",
         },
-        "json-value-without-motivation-type-format.yml": require("./fixtures/json-value-without-motivation-type-format"),
+        "json-value-without-motivation-type-format.yml": jsonValueWithoutMotivationTypeFormat,
       },
       "_painting-gltf": {
         assets: {
           "file.gltf": "gltf",
           "texture.png": jpg,
         },
-        "painting-gltf.yml": require("./fixtures/painting-gltf"),
+        "painting-gltf.yml": paintingGltf,
       },
       "_painting-jpg": {
         assets: {
           "file.jpg": jpg,
         },
-        "painting-jpg.yml": require("./fixtures/painting-jpg"),
+        "painting-jpg.yml": paintingJpg,
         "file.jpg": jpg,
       },
       "_painting-threejs-json-with-type": {
@@ -310,7 +321,7 @@ before(async () => {
           "file.json": "json",
           "texture.png": jpg,
         },
-        "painting-threejs-json-with-type.yml": require("./fixtures/painting-threejs-json-with-type"),
+        "painting-threejs-json-with-type.yml": paintingThreejsJsonWithType,
       },
     },
     "/generate-thumbs-manifest": {
@@ -334,17 +345,17 @@ before(async () => {
         assets: {
           "file.jpg": jpg,
         },
-        "painting-jpg-with-xywh.yml": require("./fixtures/painting-jpg-with-xywh"),
-        "info.yml": require("./fixtures/dimensions-info"),
+        "painting-jpg-with-xywh.yml": paintingJpgWithXywh,
+        "info.yml": dimensionsInfo,
       },
     },
     "/canvas-with-presentation-3-image-service-manifest": {
       "_canvas-with-presentation-3-image-service": {
-        "presentation-3-image-service.yml": require("./fixtures/presentation-3-image-service"),
+        "presentation-3-image-service.yml": presentation3ImageService,
       },
     },
     "/behavior-paged-manifest": {
-      "info.yml": require("./fixtures/behavior-paged"),
+      "info.yml": behaviorPaged,
       "_page-1": {
         "file.jpg": jpg,
       },
@@ -353,7 +364,7 @@ before(async () => {
       },
     },
     "/multiple-behavior-manifest": {
-      "info.yml": require("./fixtures/multiple-behavior"),
+      "info.yml": multipleBehavior,
       "_page-1": {
         "file.jpg": jpg,
       },
@@ -368,7 +379,7 @@ before(async () => {
     },
     "/external-resource-annotation-manifest": {
       _platypus: {
-        "platypus.yml": require("./fixtures/external-resource-annotation"),
+        "platypus.yml": externalResourceAnnotation,
       },
     },
     "/canvas-label-annotation-manifest": {
@@ -376,7 +387,7 @@ before(async () => {
         assets: {
           "file.jpg": jpg,
         },
-        "label.yml": require("./fixtures/canvas-label-annotation"),
+        "label.yml": canvasLabelAnnotation,
       },
     },
     "/readme-manifest": {
@@ -385,7 +396,7 @@ before(async () => {
     "/epub-collection": {
       "alice-in-wonderland": {
         "_alice-in-wonderland": {
-          "alice-in-wonderland.yml": require("./fixtures/epub-external-resource-annotation"),
+          "alice-in-wonderland.yml": epubExternalResourceAnnotation,
         },
       },
       "cc-shared-culture": {
@@ -401,60 +412,34 @@ after(async () => {
   mock.restore();
 });
 
-importTest("utils", "./tests/utils");
-importTest("url", "./tests/url");
-importTest("do-promises-work", "./tests/do-promises-work");
-importTest("thumbs-single-manifest", "./tests/thumbs-single-manifest");
-importTest("thumbs-single-manifest-dat", "./tests/thumbs-single-manifest-dat");
-importTest("files-only-manifest", "./tests/files-only-manifest");
-importTest("files-only-manifest-dat", "./tests/files-only-manifest-dat");
-importTest("files-only-collection", "./tests/files-only-collection");
-importTest("vercel-manifest", "./tests/vercel-manifest");
-importTest("gh-pages", "./tests/gh-pages");
-importTest("collection-no-manifests", "./tests/collection-no-manifests");
-importTest("collection", "./tests/collection");
-importTest("file-annotation-collection", "./tests/file-annotation-collection");
-importTest("sort-canvases-manifest", "./tests/sort-canvases-manifest");
-importTest(
-  "sort-canvases-numeric-manifest",
-  "./tests/sort-canvases-numeric-manifest"
-);
-importTest(
-  "sort-files-numeric-manifest",
-  "./tests/sort-files-numeric-manifest"
-);
-importTest(
-  "custom-annotations-manifest",
-  "./tests/custom-annotations-manifest"
-);
-importTest("generate-thumbs-manifest", "./tests/generate-thumbs-manifest");
-importTest(
-  "generate-thumbs-dat-manifest",
-  "./tests/generate-thumbs-dat-manifest"
-);
-importTest(
-  "generate-thumbs-http-gateway-dat-manifest",
-  "./tests/generate-thumbs-http-gateway-dat-manifest"
-);
-importTest("dat-gateway", "./tests/dat-gateway");
-importTest(
-  "canvas-with-dimensions-manifest",
-  "./tests/canvas-with-dimensions-manifest"
-);
-importTest(
-  "canvas-with-presentation-3-image-service-manifest",
-  "./tests/canvas-with-presentation-3-image-service-manifest"
-);
-importTest("behavior-paged-manifest", "./tests/behavior-paged-manifest");
-importTest("multiple-behavior-manifest", "./tests/multiple-behavior-manifest");
-importTest("image-dimensions-manifest", "./tests/image-dimensions-manifest");
-importTest(
-  "external-resource-annotation-manifest",
-  "./tests/external-resource-annotation-manifest"
-);
-importTest(
-  "canvas-label-annotation-manifest",
-  "./tests/canvas-label-annotation-manifest"
-);
-importTest("readme-manifest", "./tests/readme-manifest");
-importTest("epub-collection", "./tests/epub-collection");
+// Load test modules
+await import("./tests/utils.js");
+await import("./tests/url.js");
+await import("./tests/do-promises-work.js");
+await import("./tests/thumbs-single-manifest.js");
+await import("./tests/thumbs-single-manifest-dat.js");
+await import("./tests/files-only-manifest.js");
+await import("./tests/files-only-manifest-dat.js");
+await import("./tests/files-only-collection.js");
+await import("./tests/vercel-manifest.js");
+await import("./tests/gh-pages.js");
+await import("./tests/collection-no-manifests.js");
+await import("./tests/collection.js");
+await import("./tests/file-annotation-collection.js");
+await import("./tests/sort-canvases-manifest.js");
+await import("./tests/sort-canvases-numeric-manifest.js");
+await import("./tests/sort-files-numeric-manifest.js");
+await import("./tests/custom-annotations-manifest.js");
+await import("./tests/generate-thumbs-manifest.js");
+await import("./tests/generate-thumbs-dat-manifest.js");
+await import("./tests/generate-thumbs-http-gateway-dat-manifest.js");
+await import("./tests/dat-gateway.js");
+await import("./tests/canvas-with-dimensions-manifest.js");
+await import("./tests/canvas-with-presentation-3-image-service-manifest.js");
+await import("./tests/behavior-paged-manifest.js");
+await import("./tests/multiple-behavior-manifest.js");
+await import("./tests/image-dimensions-manifest.js");
+await import("./tests/external-resource-annotation-manifest.js");
+await import("./tests/canvas-label-annotation-manifest.js");
+await import("./tests/readme-manifest.js");
+await import("./tests/epub-collection.js");

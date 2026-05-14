@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("vercel-manifest", function () {
 let manifestJson, canvasJson, thumbnailJson;
 const manifest = "/vercel-manifest";
 const manifestUrl = "https://biiif-template-code-of-ethics-zine.vercel.app";
@@ -32,4 +33,5 @@ it("has a canvas thumbnail", async () => {
 
 it("has correct canvas thumbnail url", async () => {
   assert(thumbnailJson.id === manifestUrl + "/_page-1/thumb.jpg");
+});
 });

@@ -1,7 +1,8 @@
-const { assert, build, urljoin } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build, urljoin  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
-let collectionJson, thumbnailJson, item, manifestJson;
+describe("dat-gateway", function () {
+let collectionJson, thumbnailJson, item, manifestJson, canvasJson, annotationPage, annotation, imageAnnotation;
 const collection = "/collection";
 const collectionUrl =
   "http://174.138.105.19:3000/0cd3f6a6b3b11700b299f70fe4dbc054d83590676ec18d7d623ccd31791fc772";
@@ -301,4 +302,5 @@ describe("sub-collection", async () => {
         collectionUrl + "/sub-collection/b_manifest/_canvas/page_1.jpg"
     );
   });
+});
 });
