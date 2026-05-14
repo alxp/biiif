@@ -443,8 +443,9 @@ export const generateImageTiles = async (
         id: urljoin(url, directoryName),
       })
       .toFile(join(directory, "+tiles"));
-  } catch {
-    warn(`generating image tiles failed for: ${image}`);
+  } catch (err) {
+    const sharpErr = err instanceof Error ? err.message : String(err);
+    throw new Error(`generating image tiles failed for: ${image}: ${sharpErr}`);
   }
 };
 
