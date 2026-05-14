@@ -1,11 +1,11 @@
 import {
   AnnotationMotivation,
   ExternalResourceType,
-} from "@iiif/vocabulary/dist-commonjs/";
+} from "@iiif/vocabulary/dist-commonjs/index.js";
 import { basename, dirname, extname, join } from "path";
-import { Directory } from "./Directory";
-import { IConfigJSON } from "./IConfigJSON";
-import { promise as glob } from "glob-promise";
+import { Directory } from "./Directory.js";
+import { IConfigJSON } from "./IConfigJSON.js";
+import { glob } from "glob";
 import {
   cloneJson,
   compare,
@@ -27,11 +27,11 @@ import {
   normaliseType,
   readYml,
   warn,
-} from "./Utils";
-import annotationBoilerplate from "./boilerplate/annotation.json";
-import config from "./config.json";
-import hocrBoilerplate from "./boilerplate/hocr.json";
-import imageServiceBoilerplate from "./boilerplate/imageservice.json";
+} from "./Utils.js";
+import annotationBoilerplate from "./boilerplate/annotation.json" with { type: "json" };
+import config from "./config.json" with { type: "json" };
+import hocrBoilerplate from "./boilerplate/hocr.json" with { type: "json" };
+import imageServiceBoilerplate from "./boilerplate/imageservice.json" with { type: "json" };
 import { URL } from "url";
 import urljoin from "url-join";
 
@@ -62,7 +62,7 @@ export class Canvas {
       this.directoryFilePath,
       this.parentDirectory.url.href,
       undefined,
-      this.parentDirectory
+      this.parentDirectory,
     );
 
     this.url = parentDirectory.url;
@@ -94,7 +94,7 @@ export class Canvas {
         this.directoryFilePath + "/*.yml",
         {
           ignore: ["**/info.yml"],
-        }
+        },
       );
 
       // sort files
@@ -113,7 +113,7 @@ export class Canvas {
           annotationJson.id = urljoin(
             canvasJson.id,
             "annotation",
-            canvasJson.items[0].items.length
+            String(canvasJson.items[0].items.length),
           );
 
           let motivation: string | undefined = yml.motivation;
@@ -122,7 +122,7 @@ export class Canvas {
             // assume painting
             motivation = normaliseType(AnnotationMotivation.PAINTING);
             warn(
-              `motivation property missing in ${file} guessed ${motivation}`
+              `motivation property missing in ${file} guessed ${motivation}`,
             );
           }
 
@@ -163,7 +163,7 @@ export class Canvas {
             // guess the type from the extension
             const type: string | null = getTypeByExtension(
               motivation,
-              extname(yml.value)
+              extname(yml.value),
             );
 
             if (type) {
@@ -192,7 +192,7 @@ export class Canvas {
             const format: string | null = getFormatByExtensionAndType(
               motivation,
               extname(yml.value),
-              yml.type
+              yml.type,
             );
 
             if (format) {
@@ -203,7 +203,7 @@ export class Canvas {
             // guess the format from the extension
             const format: string | null = getFormatByExtension(
               motivation,
-              extname(yml.value)
+              extname(yml.value),
             );
 
             if (format) {
@@ -243,7 +243,7 @@ export class Canvas {
             const service: any = cloneJson(imageServiceBoilerplate);
             service[0].id = annotationJson.body.id.substr(
               0,
-              annotationJson.body.id.lastIndexOf("/")
+              annotationJson.body.id.lastIndexOf("/"),
             );
             annotationJson.body.service = service;
           }
@@ -266,12 +266,12 @@ export class Canvas {
               annotationJson.body.type,
               path,
               canvasJson,
-              annotationJson
+              annotationJson,
             );
           }
 
           canvasJson.items[0].items.push(annotationJson);
-        })
+        }),
       );
 
       // for each jpg/pdf/mp4/obj in the canvas directory
@@ -283,7 +283,7 @@ export class Canvas {
             "**/thumb.*", // ignore thumbs
             "**/info.yml*", // ignore info.yml
           ],
-        }
+        },
       );
 
       // sort files
@@ -300,7 +300,7 @@ export class Canvas {
 
     if (!canvasJson.items[0].items.length) {
       warn(
-        `Could not find any files to annotate onto ${this.directoryFilePath}`
+        `Could not find any files to annotate onto ${this.directoryFilePath}`,
       );
     }
 
@@ -311,7 +311,7 @@ export class Canvas {
 
   private async _annotateFiles(
     canvasJson: any,
-    files: string[]
+    files: string[],
   ): Promise<void> {
     await Promise.all(
       files.map(async (file: string) => {
@@ -339,10 +339,10 @@ export class Canvas {
           annotationJson.id = urljoin(
             canvasJson.id,
             "annotation",
-            canvasJson.items[0].items.length
+            String(canvasJson.items[0].items.length),
           );
           annotationJson.motivation = normaliseType(
-            AnnotationMotivation.PAINTING
+            AnnotationMotivation.PAINTING,
           );
           annotationJson.target = canvasJson.id;
           annotationJson.body.id = id;
@@ -354,11 +354,11 @@ export class Canvas {
             defaultPaintingExtension.type,
             file,
             canvasJson,
-            annotationJson
+            annotationJson,
           );
 
           const hocrFiles: string[] = await glob(
-            this.directoryFilePath + "/*.hocr"
+            this.directoryFilePath + "/*.hocr",
           );
           if (hocrFiles) {
             const hocrFile = hocrFiles[0];
@@ -367,7 +367,7 @@ export class Canvas {
               if (this._isCanvasDirectory()) {
                 directoryName = dirname(hocrFile);
                 directoryName = directoryName.substr(
-                  directoryName.lastIndexOf("/")
+                  directoryName.lastIndexOf("/"),
                 );
               }
 
@@ -375,7 +375,7 @@ export class Canvas {
               const hocrId: string = urljoin(
                 this.url.href,
                 directoryName,
-                hocrFileName
+                hocrFileName,
               );
               const hocrJson: any = cloneJson(hocrBoilerplate);
               hocrJson["@id"] = hocrId;
@@ -391,11 +391,11 @@ export class Canvas {
               this.url.href,
               directoryName,
               this.directoryFilePath,
-              annotationJson
+              annotationJson,
             );
           }
         }
-      })
+      }),
     );
   }
 

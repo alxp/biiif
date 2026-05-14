@@ -1,24 +1,15 @@
-const { basename } = require("path");
-const { build } = require("../index");
-const { URL } = require("url");
-const assert = require("assert");
-const config = require("../IConfigJSON");
-const fs = require("fs");
-const jsonfile = require("jsonfile");
-const mock = require("mock-fs");
-const urljoin = require("url-join");
+import { basename } from "path";
+import { build } from "../index.js";
+import { URL } from "url";
+import assert from "assert";
+import fs from "fs";
+import jsonfile from "jsonfile";
+import mock from "mock-fs";
+import urljoin from "url-join";
 
-exports.assert = assert;
-exports.basename = basename;
-exports.build = build;
-exports.config = config;
-exports.fs = fs;
-exports.jsonfile = jsonfile;
-exports.mock = mock;
-exports.URL = URL;
-exports.urljoin = urljoin;
+export { assert, basename, build, fs, jsonfile, mock, URL, urljoin };
 
-exports.canvasHasContentAnnotations = (canvasJson, files) => {
+export const canvasHasContentAnnotations = (canvasJson, files) => {
   assert(canvasJson);
 
   const annotationPage = canvasJson.items[0];

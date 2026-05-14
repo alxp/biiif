@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("behavior-paged-manifest", function () {
 let manifestJson;
 const manifest = "/behavior-paged-manifest";
 const manifestUrl = "http://test.com/behavior-paged-manifest";
@@ -18,4 +19,5 @@ it("can find manifest index.json", async () => {
 
 it("has paged behavior", async () => {
   assert(manifestJson.behavior[0] === "paged");
+});
 });

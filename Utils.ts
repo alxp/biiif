@@ -1,26 +1,26 @@
 import {
   AnnotationMotivation,
   ExternalResourceType,
-} from "@iiif/vocabulary/dist-commonjs/";
-import { Directory } from "./Directory";
+} from "@iiif/vocabulary/dist-commonjs/index.js";
+import { Directory } from "./Directory.js";
 import { dirname, extname } from "path";
-import { IConfigJSON } from "./IConfigJSON";
+import { IConfigJSON } from "./IConfigJSON.js";
 import { join, basename } from "path";
-import { promise as glob } from "glob-promise";
-import { TypeFormat } from "./TypeFormat";
+import { glob } from "glob";
+import { TypeFormat } from "./TypeFormat.js";
 import chalk from "chalk";
-import config from "./config.json";
+import config from "./config.json" with { type: "json" };
 import ffprobe from "ffprobe";
 import ffprobeStatic from "ffprobe-static";
 import fs from "fs";
 import isurl from "is-url";
 import jsonfile from "jsonfile";
-import labelBoilerplate from "./boilerplate/label.json";
-import thumbnailBoilerplate from "./boilerplate/thumbnail.json";
+import labelBoilerplate from "./boilerplate/label.json" with { type: "json" };
+import thumbnailBoilerplate from "./boilerplate/thumbnail.json" with { type: "json" };
 import { URL } from "url";
 import urljoin from "url-join";
 import yaml from "js-yaml";
-const sharp = require("sharp");
+import sharp from "sharp";
 
 const _config: IConfigJSON = config;
 
@@ -45,7 +45,7 @@ export const normaliseType = (type: string): string => {
 
 export const getTypeByExtension = (
   motivation: string,
-  extension: string
+  extension: string,
 ): string | null => {
   motivation = normaliseType(motivation);
 
@@ -62,7 +62,7 @@ export const getTypeByExtension = (
 
 export const getFormatByExtension = (
   motivation: string,
-  extension: string
+  extension: string,
 ): string | null => {
   motivation = normaliseType(motivation);
 
@@ -80,7 +80,7 @@ export const getFormatByExtension = (
 export const getFormatByExtensionAndType = (
   motivation: string,
   extension: string,
-  type: string
+  type: string,
 ): string | null => {
   motivation = normaliseType(motivation);
 
@@ -103,7 +103,7 @@ export const getFormatByExtensionAndType = (
 
 export const getTypeByFormat = (
   motivation: string,
-  format: string
+  format: string,
 ): string | null => {
   motivation = normaliseType(motivation);
 
@@ -126,7 +126,7 @@ export const getTypeByFormat = (
 
 export const getFormatByType = (
   motivation: string,
-  type: string
+  type: string,
 ): string | null => {
   motivation = normaliseType(motivation);
 
@@ -183,7 +183,7 @@ export const formatMetadata = (metadata: any): any => {
 // virtual names are needed when using dat or ipfs ids as the root directory.
 export const getVirtualFilePath = (
   filePath: string,
-  directory: Directory
+  directory: Directory,
 ): string => {
   // walk up directory parents building the realPath and virtualPath array as we go.
   // at the top level directory, use the real name for realPath and the virtual name for virtualPath.
@@ -224,7 +224,7 @@ export const isDirectory = (path: string): boolean => {
 export const getThumbnail = async (
   json: any,
   directory: Directory,
-  filePath?: string
+  filePath?: string,
 ): Promise<void> => {
   let fp: string = filePath || directory.directoryFilePath;
   fp = normaliseFilePath(fp);
@@ -266,7 +266,7 @@ export const getThumbnail = async (
 
             const imagePath: string = normaliseFilePath(join(fp, imageName));
             let pathToThumb: string = normaliseFilePath(
-              join(dirname(imagePath), "thumb.jpg")
+              join(dirname(imagePath), "thumb.jpg"),
             );
 
             // todo: this currently assumes that the image to generate a thumb from is within the directory,
@@ -375,7 +375,7 @@ export const getFileDimensions = async (
   type: string,
   file: string,
   canvasJson: any,
-  annotationJson: any
+  annotationJson: any,
 ): Promise<void> => {
   log(`getting file dimensions for: ${file}`);
 
@@ -420,7 +420,7 @@ export const generateImageTiles = async (
   url: string,
   directoryName: string,
   directory: string,
-  annotationJson: any
+  annotationJson: any,
 ): Promise<void> => {
   try {
     log(`generating image tiles for: ${image}`);

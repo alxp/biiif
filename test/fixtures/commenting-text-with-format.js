@@ -1,4 +1,4 @@
-module.exports =
+export default
   "motivation: commenting \n\
 format: text/plain \n\
 value: This is a comment on the image";

@@ -1,6 +1,7 @@
-const { assert, URL } = require("../common");
-const { mergePaths } = require("../../Utils");
+import {  assert, URL  } from "../common.js";
+import {  mergePaths  } from "../../Utils.js";
 
+describe("utils", function () {
 let url, filePath, id;
 
 it("correctly creates thumbnail ids", async () => {
@@ -83,4 +84,5 @@ it("correctly creates thumbnail ids", async () => {
   // filePath = 'C://Users/edsilv/github/edsilv/biiif-workshop/collection/_abyssinian/thumb.jpeg';
   // id = mergePaths(url, filePath, 'collection');
   // assert(id === 'http://174.138.105.19:3000/0cd3f6a6b3b11700b299f70fe4dbc054d83590676ec18d7d623ccd31791fc772/_abyssinian/thumb.jpeg');
+});
 });

@@ -1,7 +1,8 @@
-const { assert, build, urljoin } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build, urljoin  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
-let manifestJson, canvasJson, annotationPage;
+describe("files-only-manifest-dat", function () {
+let manifestJson, canvasJson, annotationPage, annotation, annotationBody;
 const manifest = "/files-only-manifest-dat";
 const manifestUrl =
   "http://174.138.105.19:3000/0cd3f6a6b3b11700b299f70fe4dbc054d83590676ec18d7d623ccd31791fc772";
@@ -73,4 +74,5 @@ it("has correct annotation id", async () => {
     annotationBody.id ===
       "http://174.138.105.19:3000/0cd3f6a6b3b11700b299f70fe4dbc054d83590676ec18d7d623ccd31791fc772/file.gltf"
   );
+});
 });

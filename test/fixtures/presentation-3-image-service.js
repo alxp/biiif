@@ -1,2 +1,2 @@
-module.exports = "value: assets/tiles/info.json \n\
+export default "value: assets/tiles/info.json \n\
 type: Image";

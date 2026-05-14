@@ -1,1 +1,1 @@
-module.exports = "behavior: paged";
+export default "behavior: paged";

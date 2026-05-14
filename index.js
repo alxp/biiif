@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.build = void 0;
-const Directory_1 = require("./Directory");
-const Utils_1 = require("./Utils");
-const build = async (dir, url, virtualName) => {
-    Utils_1.log(`started biiifing ${dir}`);
+import { Directory } from "./Directory.js";
+import { fileExists, log } from "./Utils.js";
+export const build = async (dir, url, virtualName) => {
+    log(`started biiifing ${dir}`);
     // validate inputs
-    const exists = await Utils_1.fileExists(dir);
+    const exists = await fileExists(dir);
     if (!exists) {
         throw new Error("Directory does not exist");
     }
@@ -25,9 +22,8 @@ const build = async (dir, url, virtualName) => {
             throw new Error("You must pass a url parameter");
         }
     }
-    const directory = new Directory_1.Directory(dir, url, virtualName);
+    const directory = new Directory(dir, url, virtualName);
     await directory.read();
-    Utils_1.log(`finished biiifing ${dir}`);
+    log(`finished biiifing ${dir}`);
 };
-exports.build = build;
 //# sourceMappingURL=index.js.map

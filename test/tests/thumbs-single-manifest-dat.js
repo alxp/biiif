@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("thumbs-single-manifest-dat", function () {
 let manifestJson, canvasJson, thumbnailJson;
 const manifest = "/thumbs-single-manifest";
 const manifestUrl =
@@ -42,4 +43,5 @@ it("has a canvas thumbnail", async () => {
 
 it("has correct canvas thumbnail url", async () => {
   assert(thumbnailJson.id === manifestUrl + "/thumb.jpg");
+});
 });

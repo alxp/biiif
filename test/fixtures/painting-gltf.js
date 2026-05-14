@@ -1,1 +1,1 @@
-module.exports = "value: assets/file.gltf";
+export default "value: assets/file.gltf";

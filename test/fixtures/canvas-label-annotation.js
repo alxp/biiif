@@ -1,2 +1,2 @@
-module.exports = "value: assets/file.jpg \n\
+export default "value: assets/file.jpg \n\
 label: Custom Label";

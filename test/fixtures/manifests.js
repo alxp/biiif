@@ -1,4 +1,4 @@
-module.exports =
+export default
   "manifests: \n\
 - id: http://test.com/collection/linkedmanifest2/index.json \n\
   label: Linked Manifest 2 \n\

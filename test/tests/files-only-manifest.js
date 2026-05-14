@@ -1,6 +1,7 @@
-const { assert, build, urljoin } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build, urljoin  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("files-only-manifest", function () {
 let manifestJson, canvasJson, annotationPage, annotation, annotationBody;
 const manifest = "/files-only-manifest";
 const manifestUrl = "http://test.com/files-only-manifest";
@@ -262,4 +263,5 @@ it("sixth canvas has an annotation body", async () => {
 
 it("sixth canvas has correct annotation id", async () => {
   assert(annotationBody.id === "http://test.com/files-only-manifest/file.usdz");
+});
 });

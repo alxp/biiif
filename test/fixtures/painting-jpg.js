@@ -1,1 +1,1 @@
-module.exports = "value: assets/file.jpg";
+export default "value: assets/file.jpg";

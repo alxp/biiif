@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("canvas-with-presentation-3-image-service-manifest", function () {
 let manifestJson,
   canvasJson,
   annotationPage,
@@ -80,4 +81,5 @@ it("has correct image service id", async () => {
     service[0].id ===
       manifestUrl + "/_canvas-with-presentation-3-image-service/assets/tiles"
   );
+});
 });

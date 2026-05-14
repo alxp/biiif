@@ -1,6 +1,7 @@
-const { assert, build } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import {  assert, build  } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("multiple-behavior-manifest", function () {
 let manifestJson;
 const manifest = "/multiple-behavior-manifest";
 const manifestUrl = "http://test.com/multiple-behavior-manifest";
@@ -19,4 +20,5 @@ it("can find manifest index.json", async () => {
 it("has paged and auto behavior", async () => {
   assert(manifestJson.behavior[0] === "paged");
   assert(manifestJson.behavior[1] === "unordered");
+});
 });
