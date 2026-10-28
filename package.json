@@ -63,5 +63,8 @@
     "prettier": "^3.8.3",
     "serve": "^14.2.6",
     "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true
   }
 }
