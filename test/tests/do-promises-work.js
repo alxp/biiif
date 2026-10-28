@@ -1,6 +1,7 @@
-const { assert, build, root } = require("../common");
-const { fileExists } = require("../../Utils");
+import { assert, build, root } from "../common.js";
+import {  fileExists  } from "../../Utils.js";
 
+describe("do-promises-work", function () {
 const manifest = `${root}/files-only-manifest`;
 const manifestUrl = "http://test.com/files-only-manifest";
 
@@ -11,4 +12,5 @@ it("can build manifest", async () => {
 
 it("happens after build", async () => {
   console.log("I should happen after build");
+});
 });

@@ -1,2 +1,2 @@
-module.exports = "type: PhysicalObject \n\
+export default "type: PhysicalObject \n\
 value: assets/file.json";

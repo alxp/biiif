@@ -1,6 +1,8 @@
-const { assert, build, urljoin, root } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import { assert, build, urljoin, root } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("epub-collection", function () {
+let manifestJson, item, collectionJson, canvasJson, annotationPage, annotation, annotationBody;
 const collection = `${root}/epub-collection`;
 const collectionUrl = "http://test.com/epub-collection";
 
@@ -175,4 +177,5 @@ describe("painting epub", async () => {
   it("has correct annotation body format", async () => {
     assert(annotationBody.format === "application/epub+zip");
   });
+});
 });

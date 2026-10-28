@@ -1,4 +1,4 @@
-import { TypeFormat } from "./TypeFormat";
+import { TypeFormat } from "./TypeFormat.js";
 
 export interface IConfigJSON {
   thumbnails: thumbnails;

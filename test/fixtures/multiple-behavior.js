@@ -1,3 +1,3 @@
-module.exports = "behavior: \n\
+export default "behavior: \n\
   - paged \n\
   - unordered";

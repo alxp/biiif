@@ -1,6 +1,8 @@
-const { assert, build, urljoin, canvasHasContentAnnotations, root } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import { assert, build, urljoin, canvasHasContentAnnotations, root } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("file-annotation-collection", function () {
+let collectionJson, canvasJson, annotationPage, imageAnnotation;
 const collection = `${root}/file-annotation-collection`;
 const collectionUrl = "http://test.com/file-annotation-collection";
 
@@ -97,4 +99,5 @@ describe("erroneous file", async () => {
     assert(annotationPage);
     assert(annotationPage.items.length === 0);
   });
+});
 });

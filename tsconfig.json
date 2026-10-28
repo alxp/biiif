@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["dom", "es2017"],
-    "moduleResolution": "node",
-    "module": "commonjs",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "target": "es2017",
     "noUnusedLocals": true,
     "resolveJsonModule": true,

@@ -1,2 +1,2 @@
-module.exports = "motivation: data \n\
+export default "motivation: data \n\
 value: assets/data.json";

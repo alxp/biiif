@@ -1,29 +1,20 @@
-const { basename, join } = require("path");
-const { tmpdir } = require("os");
-const { mkdtempSync } = require("fs");
-const { build } = require("../index");
-const { URL } = require("url");
-const assert = require("assert");
-const config = require("../IConfigJSON");
-const fs = require("fs");
-const jsonfile = require("jsonfile");
-const urljoin = require("url-join");
+import { basename, join } from "path";
+import { tmpdir } from "os";
+import { mkdtempSync } from "fs";
+import { build } from "../index.js";
+import { URL } from "url";
+import assert from "assert";
+import fs from "fs";
+import jsonfile from "jsonfile";
+import urljoin from "url-join";
 
 // Fixtures live in a real temporary directory on disk (mock-fs is not
 // compatible with Node 26, see https://github.com/tschaub/mock-fs/issues/447).
 const root = mkdtempSync(join(tmpdir(), "biiif-test-"));
 
-exports.assert = assert;
-exports.basename = basename;
-exports.build = build;
-exports.config = config;
-exports.fs = fs;
-exports.jsonfile = jsonfile;
-exports.root = root;
-exports.URL = URL;
-exports.urljoin = urljoin;
+export { assert, basename, build, fs, jsonfile, root, URL, urljoin };
 
-exports.canvasHasContentAnnotations = (canvasJson, files) => {
+export const canvasHasContentAnnotations = (canvasJson, files) => {
   assert(canvasJson);
 
   const annotationPage = canvasJson.items[0];

@@ -1,6 +1,7 @@
-const { assert, build, root } = require("../common");
-const { fileExists, readJson } = require("../../Utils");
+import { assert, build, root } from "../common.js";
+import {  fileExists, readJson  } from "../../Utils.js";
 
+describe("canvas-with-dimensions-manifest", function () {
 let manifestJson, canvasJson, annotationPage, annotation, annotationBody;
 const manifest = `${root}/canvas-with-dimensions-manifest`;
 const manifestUrl = "http://test.com/canvas-with-dimensions-manifest";
@@ -58,4 +59,5 @@ it("has correct annotation body id", async () => {
     annotationBody.id ===
       manifestUrl + "/_canvas-with-dimensions/assets/file.jpg#xywh=0,0,600,400"
   );
+});
 });
