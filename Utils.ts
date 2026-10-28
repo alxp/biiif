@@ -19,7 +19,7 @@ import labelBoilerplate from "./boilerplate/label.json" with { type: "json" };
 import thumbnailBoilerplate from "./boilerplate/thumbnail.json" with { type: "json" };
 import { URL } from "url";
 import urljoin from "url-join";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import sharp from "sharp";
 
 const _config: IConfigJSON = config;
@@ -548,10 +548,10 @@ export const writeJson = (path: string, json: string): Promise<void> => {
   });
 };
 
-export const readYml = (path: string): Promise<string> => {
-  return new Promise<string>((resolve, reject) => {
+export const readYml = (path: string): Promise<any> => {
+  return new Promise<any>((resolve, reject) => {
     try {
-      const doc = yaml.load(fs.readFileSync(path, "utf8"));
+      const doc = load(fs.readFileSync(path, "utf8"));
       resolve(doc);
     } catch (e) {
       reject(e);

@@ -4,6 +4,7 @@
     "moduleResolution": "nodenext",
     "module": "nodenext",
     "target": "es2017",
+    "strict": false,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,

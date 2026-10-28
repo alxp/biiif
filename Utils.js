@@ -12,7 +12,7 @@ import jsonfile from "jsonfile";
 import labelBoilerplate from "./boilerplate/label.json" with { type: "json" };
 import thumbnailBoilerplate from "./boilerplate/thumbnail.json" with { type: "json" };
 import urljoin from "url-join";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import sharp from "sharp";
 const _config = config;
 export const compare = (a, b) => {
@@ -426,7 +426,7 @@ export const writeJson = (path, json) => {
 export const readYml = (path) => {
     return new Promise((resolve, reject) => {
         try {
-            const doc = yaml.load(fs.readFileSync(path, "utf8"));
+            const doc = load(fs.readFileSync(path, "utf8"));
             resolve(doc);
         }
         catch (e) {
