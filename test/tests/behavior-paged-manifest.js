@@ -1,8 +1,8 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let manifestJson;
-const manifest = "/behavior-paged-manifest";
+const manifest = `${root}/behavior-paged-manifest`;
 const manifestUrl = "http://test.com/behavior-paged-manifest";
 
 it("can build manifest", async () => {
@@ -11,7 +11,7 @@ it("can build manifest", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find manifest index.json", async () => {
-  const file = "/behavior-paged-manifest/index.json";
+  const file = `${root}/behavior-paged-manifest/index.json`;
   assert(await fileExists(file));
   manifestJson = await readJson(file);
 });

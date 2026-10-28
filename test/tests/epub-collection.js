@@ -1,7 +1,7 @@
-const { assert, build, urljoin } = require("../common");
+const { assert, build, urljoin, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
-const collection = "/epub-collection";
+const collection = `${root}/epub-collection`;
 const collectionUrl = "http://test.com/epub-collection";
 
 it("can build epub collection", async () => {
@@ -10,7 +10,7 @@ it("can build epub collection", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find collection index.json", async () => {
-  const file = "/epub-collection/index.json";
+  const file = `${root}/epub-collection/index.json`;
   assert(await fileExists(file));
   collectionJson = await readJson(file);
 });

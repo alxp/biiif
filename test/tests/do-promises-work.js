@@ -1,7 +1,7 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists } = require("../../Utils");
 
-const manifest = "/files-only-manifest";
+const manifest = `${root}/files-only-manifest`;
 const manifestUrl = "http://test.com/files-only-manifest";
 
 it("can build manifest", async () => {

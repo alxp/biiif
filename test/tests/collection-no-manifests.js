@@ -1,8 +1,8 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let collectionJson;
-const collection = "/manifests-collection";
+const collection = `${root}/manifests-collection`;
 const collectionUrl = "http://test.com/collection";
 
 it("can build collection", async () => {
@@ -11,7 +11,7 @@ it("can build collection", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find collection index.json", async () => {
-  const file = "/manifests-collection/index.json";
+  const file = `${root}/manifests-collection/index.json`;
   assert(await fileExists(file));
   collectionJson = await readJson(file);
 });

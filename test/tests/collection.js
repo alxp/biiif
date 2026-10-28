@@ -1,4 +1,4 @@
-const { assert, build, urljoin } = require("../common");
+const { assert, build, urljoin, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let collectionJson,
@@ -8,7 +8,7 @@ let collectionJson,
   item,
   annotationPage,
   imageAnnotation;
-const collection = "/collection";
+const collection = `${root}/collection`;
 const collectionUrl = "http://test.com/collection";
 
 it("can build collection", async () => {
@@ -17,7 +17,7 @@ it("can build collection", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find collection index.json", async () => {
-  const file = "/collection/index.json";
+  const file = `${root}/collection/index.json`;
   assert(await fileExists(file));
   collectionJson = await readJson(file);
 });
@@ -101,7 +101,7 @@ it("has correct linked item label", async () => {
 });
 
 it("can find manifest index.json", async () => {
-  const file = "/collection/a_manifest/index.json";
+  const file = `${root}/collection/a_manifest/index.json`;
   assert(await fileExists(file));
   manifestJson = await readJson(file);
 });
@@ -173,7 +173,7 @@ it("has correct annotation id", async () => {
 
 describe("sub-collection", async () => {
   it("can find collection index.json", async () => {
-    const file = "/collection/sub-collection/index.json";
+    const file = `${root}/collection/sub-collection/index.json`;
     assert(await fileExists(file));
     collectionJson = await readJson(file);
   });
@@ -222,7 +222,7 @@ describe("sub-collection", async () => {
   });
 
   it("can find manifest index.json", async () => {
-    const file = "/collection/sub-collection/b_manifest/index.json";
+    const file = `${root}/collection/sub-collection/b_manifest/index.json`;
     assert(await fileExists(file));
     manifestJson = await readJson(file);
   });

@@ -79,6 +79,7 @@ export class Directory {
     const directories: string[] = await glob(directoriesPattern, {
       ignore: [
         "**/*.{crt,drc,epub,glb,gltf,gz,stl,jpg,jpeg,json,md,mp3,mp4,nii,obj,opf,pdf,ply,png,tif,tiff,toml,usdz,vtt,yml}", // ignore files (must include file extensions explicitly, otherwise directories with a . are matched)
+        "**/vips-properties.xml", // ignore the metadata sidecar written by sharp/libvips
         "**/_*", // ignore canvas folders
         "**/+*", // ignore generated folders
         "**/!*", // ignore folders starting with a !
@@ -122,7 +123,12 @@ export class Directory {
       const paintableFiles: string[] = await glob(
         this.directoryFilePath + "/*.*",
         {
-          ignore: ["**/*.yml", "**/thumb.*", "**/index.json"],
+          ignore: [
+            "**/*.yml",
+            "**/thumb.*",
+            "**/index.json",
+            "**/vips-properties.xml",
+          ],
         }
       );
 

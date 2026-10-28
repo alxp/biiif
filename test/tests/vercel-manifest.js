@@ -1,8 +1,8 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let manifestJson, canvasJson, thumbnailJson;
-const manifest = "/vercel-manifest";
+const manifest = `${root}/vercel-manifest`;
 const manifestUrl = "https://biiif-template-code-of-ethics-zine.vercel.app";
 
 it("can build manifest", async () => {
@@ -11,7 +11,7 @@ it("can build manifest", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find manifest index.json", async () => {
-  const file = "/vercel-manifest/index.json";
+  const file = `${root}/vercel-manifest/index.json`;
   assert(await fileExists(file));
   manifestJson = await readJson(file);
 });

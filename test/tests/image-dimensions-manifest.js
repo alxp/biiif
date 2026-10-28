@@ -1,8 +1,8 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let manifestJson, canvasJson, annotationPage, annotation, annotationBody;
-const manifest = "/image-dimensions-manifest";
+const manifest = `${root}/image-dimensions-manifest`;
 const manifestUrl = "http://test.com/image-dimensions-manifest";
 
 it("can build manifest", async () => {
@@ -11,7 +11,7 @@ it("can build manifest", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find manifest index.json", async () => {
-  const file = "/image-dimensions-manifest/index.json";
+  const file = `${root}/image-dimensions-manifest/index.json`;
   assert(await fileExists(file));
   manifestJson = await readJson(file);
 });
@@ -25,12 +25,10 @@ it("has correct canvas id", async () => {
   assert(canvasJson.id === manifestUrl + "/index.json/canvas/0");
 });
 
-// todo: can't do this any more as sharp fails with mock-fs
-// need to use the actual filesystem
-// it("has correct canvas width and height", async () => {
-//   assert(canvasJson.width === 582);
-//   assert(canvasJson.height === 328);
-// });
+it("has correct canvas width and height", async () => {
+  assert(canvasJson.width === 582);
+  assert(canvasJson.height === 328);
+});
 
 it("has an annotation page", async () => {
   annotationPage = canvasJson.items[0];
@@ -47,9 +45,7 @@ it("has an annotation body", async () => {
   assert(annotationBody);
 });
 
-// todo: can't do this any more as sharp fails with mock-fs
-// need to use the actual filesystem
-// it("has correct annotation width and height", async () => {
-//   assert(annotationBody.width === 582);
-//   assert(annotationBody.height === 328);
-// });
+it("has correct annotation width and height", async () => {
+  assert(annotationBody.width === 582);
+  assert(annotationBody.height === 328);
+});

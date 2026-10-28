@@ -1,5 +1,29 @@
 const common = require("./common");
-const mock = common.mock;
+const fs = require("fs");
+const path = require("path");
+
+// Writes the nested fixture tree to disk. Strings, Buffers and Arrays are
+// written as file contents, nested objects become directories.
+function writeTree(root, tree) {
+  for (const name of Object.keys(tree)) {
+    const value = tree[name];
+    const filePath = path.join(root, name);
+    if (
+      value &&
+      typeof value === "object" &&
+      !Buffer.isBuffer(value) &&
+      !Array.isArray(value)
+    ) {
+      writeTree(filePath, value);
+    } else {
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(
+        filePath,
+        Buffer.isBuffer(value) ? value : Buffer.from(value)
+      );
+    }
+  }
+}
 
 function importTest(name, path) {
   describe(name, function () {
@@ -11,7 +35,7 @@ before(async () => {
   const blob = Buffer.from([8, 6, 7, 5, 3, 0, 9]);
   const jpg = Buffer.from(require("./fixtures/cat-jpg"));
 
-  mock({
+  writeTree(common.root, {
     "/thumbs-single-manifest": {
       "file.jpg": jpg,
     },
@@ -398,7 +422,7 @@ before(async () => {
 });
 
 after(async () => {
-  mock.restore();
+  fs.rmSync(common.root, { recursive: true, force: true });
 });
 
 importTest("utils", "./tests/utils");

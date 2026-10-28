@@ -1,8 +1,8 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let manifestJson, canvasJson, thumbnailJson;
-const manifest = "/thumbs-single-manifest";
+const manifest = `${root}/thumbs-single-manifest`;
 const manifestUrl =
   "http://174.138.105.19:3000/0cd3f6a6b3b11700b299f70fe4dbc054d83590676ec18d7d623ccd31791fc772";
 
@@ -17,7 +17,7 @@ it("can build manifest", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find manifest index.json", async () => {
-  const file = "/thumbs-single-manifest/index.json";
+  const file = `${root}/thumbs-single-manifest/index.json`;
   assert(await fileExists(file));
   manifestJson = await readJson(file);
 });

@@ -1,8 +1,8 @@
-const { assert, build, urljoin } = require("../common");
+const { assert, build, urljoin, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let manifestJson, canvasJson, annotationPage;
-const manifest = "/files-only-manifest-dat";
+const manifest = `${root}/files-only-manifest-dat`;
 const manifestUrl =
   "http://174.138.105.19:3000/0cd3f6a6b3b11700b299f70fe4dbc054d83590676ec18d7d623ccd31791fc772";
 

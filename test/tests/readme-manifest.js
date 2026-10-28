@@ -1,7 +1,7 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists } = require("../../Utils");
 
-const manifest = "/readme-manifest";
+const manifest = `${root}/readme-manifest`;
 const manifestUrl = "http://test.com/readme-manifest";
 
 it("can build manifest", async () => {

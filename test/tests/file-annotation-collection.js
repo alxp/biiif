@@ -1,7 +1,7 @@
-const { assert, build, urljoin, canvasHasContentAnnotations } = require("../common");
+const { assert, build, urljoin, canvasHasContentAnnotations, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
-const collection = "/file-annotation-collection";
+const collection = `${root}/file-annotation-collection`;
 const collectionUrl = "http://test.com/file-annotation-collection";
 
 it("can build collection", async () => {

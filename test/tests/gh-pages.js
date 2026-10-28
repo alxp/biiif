@@ -1,8 +1,8 @@
-const { assert, build } = require("../common");
+const { assert, build, root } = require("../common");
 const { fileExists, readJson } = require("../../Utils");
 
 let collectionJson, thumbnailJson, manifestJson, canvasJson;
-const collection = "/gh-collection";
+const collection = `${root}/gh-collection`;
 const githubpagesUrl =
   "https://username.github.io/uv-app-starter-fork/gh-collection";
 
@@ -12,7 +12,7 @@ it("can build collection", async () => {
 }).timeout(1000); // should take less than a second
 
 it("can find collection index.json", async () => {
-  const file = "/gh-collection/index.json";
+  const file = `${root}/gh-collection/index.json`;
   assert(await fileExists(file));
   collectionJson = await readJson(file);
 });
@@ -45,7 +45,7 @@ it("has correct manifest thumbnail id", async () => {
 });
 
 it("can find manifest index.json", async () => {
-  const file = "/gh-collection/vertebra/index.json";
+  const file = `${root}/gh-collection/vertebra/index.json`;
   assert(await fileExists(file));
   manifestJson = await readJson(file);
 });
