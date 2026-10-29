@@ -1,28 +1,39 @@
 # About This Fork
 
-This is a fork of [edsilv/biiif](https://github.com/edsilv/biiif) with the following changes:
+This is a fork of [edsilv/biiif](https://github.com/edsilv/biiif). The functionality added by this fork:
 
-- **ESM migration** — converted from CommonJS to ES modules throughout
-- **Node.js 26** support — upgraded dependencies for compatibility with modern Node.js
-- **TypeScript 5.9** — upgraded from 4.1, with `nodenext` module resolution
-- **chalk v5**, **url-join v5**, **glob v13** — upgraded to latest majors (removed `glob-promise`, glob v10+ is natively async)
-- **Mocha v11**, **mock-fs v5** — upgraded test dependencies
-- **Prettier v3** — upgraded formatter
-- **TSLint removed** — deprecated; TypeScript compiler is now the sole code quality gate
-- **Security fixes** — overrides for `diff` and `serialize-javascript`; `node-gyp` v12; 0 npm audit vulnerabilities
 - **hOCR text overlay support** — `.hocr` files in a canvas folder are automatically linked via `seeAlso`
-- **JPEG2000 support** — via locally-compiled [Sharp](https://sharp.pixelplumbing.com)
+- **JPEG2000 support** — `.jp2` images can be used to build manifests, including image tiles, via locally-compiled [Sharp](https://sharp.pixelplumbing.com)
+
+It's also kept up to date with the modern ecosystem:
+
+- **ES modules** — converted from CommonJS to ES modules throughout
+- **Modern Node.js** — dependencies (chalk, glob, js-yaml, sharp, TypeScript, and others) are updated to their current majors; requires Node.js 22 or later
+- **TypeScript** with `nodenext` module resolution; TSLint removed (deprecated) — the TypeScript compiler is the sole code quality gate
+- **Tests and formatting** — Mocha and Prettier; the test suite runs on real fixture files in a temporary directory
+- **Security** — dependency overrides for vulnerabilities; 0 npm audit vulnerabilities
 
 ### hOCR Support
 
 If there is a file with a .hocr extension in a folder with an image, then a 'seeAlso' section will be
 automatically added with a link to the hOCR file.
 
-This was tested with the Mirador 3and 4 viewers compiled with the [Text Overlay](https://github.com/dbmdz/mirador-textoverlay) plugin.
+This was tested with the Mirador 3 and 4 viewers compiled with the [Text Overlay](https://github.com/dbmdz/mirador-textoverlay) plugin.
 
 ### JPEG2000 Support
 
-See [these instructions](https://sharp.pixelplumbing.com/install#building-from-source) for compiling Sharp with a local Vips library.
+biiif can build manifests from JPEG 2000 (`.jp2`) images, including image tiles.
+
+Sharp's prebuilt binaries do not include the OpenJPEG loader, so JPEG 2000
+support requires building Sharp against a locally-installed libvips that
+includes OpenJPEG (for example, `brew install libvips`, whose formula
+requires OpenJPEG):
+
+```bash
+cd node_modules/sharp && PATH="$(npm prefix)/node_modules/.bin:$PATH" node install/build.js
+```
+
+See [these instructions](https://sharp.pixelplumbing.com/install#building-from-source) for details.
 
 # biiif (build iiif) 👷✨📃
 
@@ -31,11 +42,11 @@ See [these instructions](https://sharp.pixelplumbing.com/install#building-from-s
 <!-- ![IIIF Presentation API 3 compliant](https://img.shields.io/badge/iiif--presentation--api-%3E=3-blue.png) -->
 
 ```bash
-npm i biiif --save
+npm i @alxp/biiif --save
 ```
 
 ```js
-import { build } from "biiif";
+import { build } from "@alxp/biiif";
 build("myfolder", "http://example.com/myfolder");
 ```
 
