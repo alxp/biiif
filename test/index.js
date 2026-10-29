@@ -463,3 +463,4 @@ await import("./tests/external-resource-annotation-manifest.js");
 await import("./tests/canvas-label-annotation-manifest.js");
 await import("./tests/readme-manifest.js");
 await import("./tests/epub-collection.js");
+await import("./tests/jp2.js");

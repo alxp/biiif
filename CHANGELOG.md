@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.0 (2026-10-28)
+
+- **JPEG 2000 fallback** — `.jp2` images now work out of the box on any
+  install: when Sharp's prebuilt binaries can't decode JPEG 2000, biiif
+  falls back to a WASM build of OpenJPEG (`@cornerstonejs/codec-openjpeg`)
+  and feeds the decoded pixels to Sharp. Installs with a libvips-built
+  Sharp use the faster native path automatically, and failures now produce
+  an actionable error instead of "unsupported image format".
+
 ## 2.1.0 (2026-10-28)
 
 - **Node.js 26 support** — the test suite now runs on Node.js 26. The

@@ -24,10 +24,14 @@ This was tested with the Mirador 3 and 4 viewers compiled with the [Text Overlay
 
 biiif can build manifests from JPEG 2000 (`.jp2`) images, including image tiles.
 
-Sharp's prebuilt binaries do not include the OpenJPEG loader, so JPEG 2000
-support requires building Sharp against a locally-installed libvips that
-includes OpenJPEG (for example, `brew install libvips`, whose formula
-requires OpenJPEG):
+This works out of the box: if Sharp can't decode JPEG 2000 natively (its
+prebuilt binaries do not include the OpenJPEG loader), biiif automatically
+falls back to a WASM build of OpenJPEG and feeds the decoded pixels to Sharp.
+
+For best performance with large images, build Sharp against a
+locally-installed libvips that includes OpenJPEG (for example,
+`brew install libvips`, whose formula requires OpenJPEG) — biiif detects
+this automatically and uses the native path:
 
 ```bash
 cd node_modules/sharp && PATH="$(npm prefix)/node_modules/.bin:$PATH" node install/build.js

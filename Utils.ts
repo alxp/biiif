@@ -14,6 +14,7 @@ import ffprobe from "ffprobe";
 import ffprobeStatic from "ffprobe-static";
 import fs from "fs";
 import isurl from "is-url";
+import { readImage } from "./Jp2.js";
 import jsonfile from "jsonfile";
 import labelBoilerplate from "./boilerplate/label.json" with { type: "json" };
 import thumbnailBoilerplate from "./boilerplate/thumbnail.json" with { type: "json" };
@@ -290,9 +291,8 @@ export const getThumbnail = async (
 
               if (!thumbExists) {
                 try {
-                  await sharp(imagePath, {
-                    limitInputPixels: true,
-                  })
+                  const image: any = await readImage(imagePath);
+                  await image
                     .resize({
                       width: _config.thumbnails.width,
                       height: _config.thumbnails.height,
@@ -384,9 +384,7 @@ export const getFileDimensions = async (
       // if it's an image, get the width and height and add to the annotation body and canvas
       case ExternalResourceType.IMAGE:
         try {
-          const image: any = await sharp(file, {
-            limitInputPixels: true,
-          }).metadata();
+          const image: any = await (await readImage(file)).metadata();
           const width: number = image.width;
           const height: number = image.height;
           canvasJson.width = Math.max(canvasJson.width || 0, width);
@@ -435,9 +433,8 @@ export const generateImageTiles = async (
       },
     ];
 
-    await sharp(image, {
-      limitInputPixels: true,
-    })
+    const pipeline: any = await readImage(image);
+    await pipeline
       .tile({
         layout: "iiif",
         id: urljoin(url, directoryName),

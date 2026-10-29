@@ -8,6 +8,7 @@ import ffprobe from "ffprobe";
 import ffprobeStatic from "ffprobe-static";
 import fs from "fs";
 import isurl from "is-url";
+import { readImage } from "./Jp2.js";
 import jsonfile from "jsonfile";
 import labelBoilerplate from "./boilerplate/label.json" with { type: "json" };
 import thumbnailBoilerplate from "./boilerplate/thumbnail.json" with { type: "json" };
@@ -203,9 +204,8 @@ export const getThumbnail = async (json, directory, filePath) => {
                             const thumbExists = await fileExists(pathToThumb);
                             if (!thumbExists) {
                                 try {
-                                    await sharp(imagePath, {
-                                        limitInputPixels: true,
-                                    })
+                                    const image = await readImage(imagePath);
+                                    await image
                                         .resize({
                                         width: _config.thumbnails.width,
                                         height: _config.thumbnails.height,
@@ -278,9 +278,7 @@ export const getFileDimensions = async (type, file, canvasJson, annotationJson) 
             // if it's an image, get the width and height and add to the annotation body and canvas
             case ExternalResourceType.IMAGE:
                 try {
-                    const image = await sharp(file, {
-                        limitInputPixels: true,
-                    }).metadata();
+                    const image = await (await readImage(file)).metadata();
                     const width = image.width;
                     const height = image.height;
                     canvasJson.width = Math.max(canvasJson.width || 0, width);
@@ -320,9 +318,8 @@ export const generateImageTiles = async (image, url, directoryName, directory, a
                 profile: "http://iiif.io/api/image/2/level2.json",
             },
         ];
-        await sharp(image, {
-            limitInputPixels: true,
-        })
+        const pipeline = await readImage(image);
+        await pipeline
             .tile({
             layout: "iiif",
             id: urljoin(url, directoryName),
